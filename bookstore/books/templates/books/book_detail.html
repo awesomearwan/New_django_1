@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+    <h1 class="text-3xl font-bold mb-4">{{ book.title }}</h1>
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <p class="text-gray-600"><strong>Author:</strong> {{ book.author }}</p>
+        <p class="text-gray-600"><strong>Published Date:</strong> {{ book.published_date|date:"F d, Y" }}</p>
+        <p class="text-green-600 font-bold"><strong>Price:</strong> ${{ book.price }}</p>
+        <p class="text-gray-600"><strong>Visibility:</strong> {% if book.is_visible %}Visible{% else %}Hidden{% endif %}</p>
+        <a href="{% url 'books:book_list' %}" class="mt-4 inline-block text-blue-600 hover:underline">Back to Book List</a>
+    </div>
+{% endblock %}
