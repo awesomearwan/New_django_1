@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'books',  # Custom app for managing books
+    'retailers',  # Custom app for managing retailers
+    
 ]
 
 MIDDLEWARE = [
