@@ -1,25 +1,18 @@
-{% extends "base.html" %}
+{% extends 'retailer/base.html' %}
 
-{% block title %}Book List{% endblock %}
+{% block title %}Retailers List{% endblock %}
+{% block header %}Retailers{% endblock %}
 
 {% block content %}
-    <h1 class="text-3xl font-bold mb-6">Our Books</h1>
-    {% if books %}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {% for book in books %}
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-xl font-semibold">
-                        <a href="{% url 'books:book_detail' book.pk %}" class="text-blue-600 hover:underline">
-                            {{ book.title }}
-                        </a>
-                    </h2>
-                    <p class="text-gray-600">Author: {{ book.author }}</p>
-                    <p class="text-gray-600">Published: {{ book.published_date|date:"F d, Y" }}</p>
-                    <p class="text-green-600 font-bold">Price: ${{ book.price }}</p>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p class="text-gray-600">No books available at the moment.</p>
-    {% endif %}
+    <ul>
+        {% for retailer in retailers %}
+            <li>
+                <a href="{% url 'retailer:retailer_detail' retailer.pk %}">
+                    {{ retailer.name }} - {{ retailer.mobile_no }}
+                </a>
+            </li>
+        {% empty %}
+            <li>No retailers available.</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

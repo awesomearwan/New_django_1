@@ -1,0 +1,14 @@
+{% extends 'retailer/base.html' %}
+
+{% block title %}Retailer Details{% endblock %}
+{% block header %}Retailer: {{ retailer.name }}{% endblock %}
+
+{% block content %}
+    <p><strong>Mobile:</strong> {{ retailer.mobile_no }}</p>
+    <p><strong>Date of Joining:</strong> {{ retailer.date_of_joining }}</p>
+    <p><strong>Total Sales:</strong> ₹{{ retailer.total_sales }}</p>
+    <p><strong>Address:</strong> {{ retailer.address }}</p>
+    <p><strong>Active:</strong> {{ retailer.is_active }}</p>
+
+    <a href="{% url 'retailer:retailer_list' %}">Back to list</a>
+{% endblock %}

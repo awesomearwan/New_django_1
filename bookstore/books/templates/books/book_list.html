@@ -1,25 +1,41 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Book List{% endblock %}
 
 {% block content %}
-    <h1 class="text-3xl font-bold mb-6">Our Books</h1>
-    {% if books %}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {% for book in books %}
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-xl font-semibold">
-                        <a href="{% url 'books:book_detail' book.pk %}" class="text-blue-600 hover:underline">
-                            {{ book.title }}
-                        </a>
-                    </h2>
-                    <p class="text-gray-600">Author: {{ book.author }}</p>
-                    <p class="text-gray-600">Published: {{ book.published_date|date:"F d, Y" }}</p>
-                    <p class="text-green-600 font-bold">Price: ${{ book.price }}</p>
-                </div>
-            {% endfor %}
+    <!-- Navbar -->
+    <nav class="bg-blue-900 text-white p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'books:home' %}" class="text-2xl font-bold">Bookstore</a>
+            <div class="space-x-4">
+                <a href="{% url 'books:home' %}" class="hover:text-green-400">Home</a>
+                <a href="{% url 'books:book_list' %}" class="hover:text-green-400">Books</a>
+                <a href="{% url 'admin:index' %}" class="hover:text-green-400">Admin</a>
+            </div>
         </div>
-    {% else %}
-        <p class="text-gray-600">No books available at the moment.</p>
-    {% endif %}
+    </nav>
+
+    <!-- Book List -->
+    <div class="container mx-auto py-12">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-8 text-center">Explore Our Books</h1>
+        {% if books %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for book in books %}
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 transform hover:scale-105 transition duration-300">
+                        <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
+                            <a href="{% url 'books:book_detail' book.pk %}" class="hover:text-blue-900">
+                                {{ book.title }}
+                            </a>
+                        </h2>
+                        <p class="text-gray-600 mb-1"><strong>Author:</strong> {{ book.author }}</p>
+                        <p class="text-gray-600 mb-1"><strong>Published:</strong> {{ book.published_date|date:"F d, Y" }}</p>
+                        <p class="text-green-500 font-bold text-lg"><strong>Price:</strong> ${{ book.price }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-500 text-center text-lg">No books available at the moment.</p>
+        {% endif %}
+    </div>
 {% endblock %}
