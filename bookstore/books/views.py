@@ -7,7 +7,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['featured_books'] = Book.objects.filter(is_visible=True)[:3]
+        context['featured_books'] = Book.objects.filter(is_visible=True)[:10]
         return context
 
     def post(self, request, *args, **kwargs):
@@ -32,3 +32,14 @@ class BookDetailView(DetailView):
 
     def get_queryset(self):
         return Book.objects.filter(is_visible=True)
+    
+class MyprofileView(TemplateView):
+    template_name = 'books/myprofile.html'
+    context_object_name = 'myprofile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['myprofile'] = Book.objects.filter(is_visible=True)
+        return context
+    
+    
