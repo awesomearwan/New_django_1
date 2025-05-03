@@ -39,3 +39,14 @@ class MyprofileView(ListView):
     context_object_name = 'profiles'
     def get_queryset(self):
         return profile.objects.all()
+    
+class addprofileView(TemplateView):
+    template_name = 'books/addprofile.html'
+
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+        profile.objects.create(name=name, email=email, phone=phone, address=address)
+        return redirect('books:myprofile')
