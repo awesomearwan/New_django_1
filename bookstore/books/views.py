@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, ListView, DetailView
 from django.shortcuts import redirect
 from .models import Book, Contact, profile
+from .forms import AddProfileForm
 
 class HomeView(TemplateView):
     template_name = 'books/home.html'
@@ -42,11 +43,16 @@ class MyprofileView(ListView):
     
 class addprofileView(TemplateView):
     template_name = 'books/addprofile.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = AddProfileForm()
+        return context
 
     def post(self, request, *args, **kwargs):
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        address = request.POST.get('address')
-        profile.objects.create(name=name, email=email, phone=phone, address=address)
-        return redirect('books:myprofile')
+        form = AddProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Create Team member
+            profile = form.save(commit=False)
+            profile.save()
+            return redirect('books:home')
+        return self.render_to_response(self.get_context_data(form=form))
