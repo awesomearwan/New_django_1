@@ -18,3 +18,14 @@ class Contact(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.email}"
+
+class profile(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    mobile = models.CharField(max_length=15)
+    address = models.TextField(max_length=255)
+    about = models.TextField(max_length=500)
+
+    def __str__(self):  
+        return self.name
+
