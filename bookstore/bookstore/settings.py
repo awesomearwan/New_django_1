@@ -37,10 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'books',  # Custom app for managing books
+    'books.apps.BooksConfig',  # Keep this entry for the books app
     'retailers',  # Custom app for managing retailers
-    
+    'rest_framework',  # Add DRF
+    'rest_framework.authtoken',  # Add token authentication
 ]
+
+AUTH_USER_MODEL = 'books.User'
+LOGOUT_REDIRECT_URL = 'books:home'  # Redirect to homepage after logout
+LOGIN_REDIRECT_URL = 'books:home'  # Redirect to homepage after login
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -100,6 +106,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+}
 
 
 # Internationalization
